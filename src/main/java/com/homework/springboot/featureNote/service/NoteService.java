@@ -19,8 +19,8 @@ public class NoteService {
         return notes.get(id);
     }
 
-    public Collection<Note> listAll() {
-        Collection<Note> values = notes.values();
+    public List<Note> listAll() {
+        List<Note> values = new ArrayList<>(notes.values());
         return  values;
     }
 

@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class NoteServiceTest {
 
     private static NoteService noteService;
-    private static Collection<Note> notes;
+    private static List<Note> notes;
 
 
     @BeforeAll
