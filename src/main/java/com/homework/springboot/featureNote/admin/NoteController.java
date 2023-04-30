@@ -67,8 +67,8 @@ public class NoteController {
         noteService.add(note);
         return "redirect:/note/list"; // the URL of the page that displays the list of notes
     }
-    @GetMapping("/edit")
-    public String editNoteForm(@RequestParam("id") Long id, Model model) {
+    @GetMapping("/edit/{id}")
+    public String editNoteForm(@PathVariable("id") Long id, Model model) {
         Note note = noteService.getById(id);
         System.out.println("id = " + id);
         System.out.println("note = " + note);

@@ -45,7 +45,7 @@
                         <td th:text="${note.title}"></td>
                         <td >
                             <span th:text="${note.content}"></span>
-                            <a th:href="'/note/edit?id=' + ${note.id}"
+                            <a th:href="@{/note/edit/{id} (id= ${note.id})}"
                                class="btn btn-outline-primary">Edit</a>
                             <a th:href="'/note/delete?id=' + ${note.id}"
                                class="btn btn-outline-danger my-2 my-lg-0">Delete</a>
