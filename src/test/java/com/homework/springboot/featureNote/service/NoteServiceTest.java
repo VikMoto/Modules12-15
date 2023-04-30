@@ -59,7 +59,8 @@ class NoteServiceTest {
         Long id = addedNote.getId();
 
         Note byId = noteService.getById(id);
-        System.out.println("notes = " + notes);
+        System.out.println("byId = " + byId);
+        System.out.println("notes = " + noteService.listAll());
         assertEquals(addedNote, byId);
 
     }

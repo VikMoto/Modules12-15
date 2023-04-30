@@ -34,6 +34,7 @@ public class NoteService {
     }
 
     public void update(Note note) {
+        System.out.println("note = " + note);
         Optional<Note> note1 = Optional.ofNullable(notes.get(note.getId()));
         if (note1.isPresent()) {
             note1.get().setTitle(note.getTitle());
