@@ -24,22 +24,19 @@ public class NoteController {
     private final TemplateEngine engine;
     private static List<Note> notes = new CopyOnWriteArrayList<>();
 
-    public void init() {
-        Note note = new Note().builder().title("Todo").content("Buy milk").build();
-        Note note2 = new Note().builder().title("Todo2").content("Buy silk").build();
-        Note note3 = new Note().builder().title("Todo3").content("Buy water").build();
-        Note note4 = new Note().builder().title("Todo4").content("Buy cake").build();
-        Note note5 = new Note().builder().title("Todo5").content("Buy mango").build();
-        noteService.add(note);
-        noteService.add(note2);
-        noteService.add(note3);
-        noteService.add(note4);
-        noteService.add(note5);
+
+
+    @GetMapping("/search")
+    public ModelAndView search(@RequestParam(required = false) String query,
+                                       HttpServletResponse response){
+
+        ModelAndView result = new ModelAndView("test");
+        result.addObject("listNote", noteService.searchQuery(query));
+        return result;
     }
 
-
     @GetMapping("/list")
-    public ModelAndView getCurrentTime(@RequestParam(required = false) String timezone,
+    public ModelAndView getCurrentList(@RequestParam(required = false) String timezone,
                                        HttpServletResponse response){
 
         ModelAndView result = new ModelAndView("test");
@@ -47,11 +44,11 @@ public class NoteController {
         return result;
     }
 
-    @GetMapping("/create")
-    public String editNoteForm() {
-        init();
-        return "redirect:/note/list"; // the name of the HTML template for the edit note form
-    }
+//    @GetMapping("/create")
+//    public String editNoteForm() {
+//        init();
+//        return "redirect:/note/list"; // the name of the HTML template for the edit note form
+//    }
 
     @GetMapping("/add")
     public String addNoteForm(@RequestParam(value = "title", required = false) String title, String content, Model model) {
@@ -69,8 +66,8 @@ public class NoteController {
     }
     @GetMapping("/edit/{id}")
     public String editNoteForm(@PathVariable("id") Long id, Model model) {
-        Note note = noteService.getById(id);
         System.out.println("id = " + id);
+        Note note = noteService.getById(id);
         System.out.println("note = " + note);
         System.out.println("noteService.listAll() = " + noteService.listAll());
         model.addAttribute("note", note);

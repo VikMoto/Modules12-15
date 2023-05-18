@@ -19,7 +19,13 @@
         <div class="card">
             <div class="card-header" >
                 <span th:text="'Notes:  ' + ${listNote.size()}"></span>
-                <a href="/note/create" class="btn btn-outline-primary">Create notes</a>
+                <form action="/note/search" method="GET">
+                    <div class="input-group mb-3 mt-3">
+                        <input th:value="${query}" type="text" class="form-control form-control-sm" name="query">
+                        <button class="btn btn-sm btn-outline-secondary" type="submit">Search</button>
+                    </div>
+                </form>
+<!--                <a href="/note/create" class="btn btn-outline-primary">Create notes</a>-->
 
 <!--                <form action="/list" method="GET">-->
 <!--                    <div class="input-group mb-3 mt-3">-->
@@ -38,8 +44,7 @@
                     </tr>
                     <tr th:each="note: ${listNote}">
                         <td >
-                            <a th:text="${note.id}">
-<!
+                            <a th:text="${note.id}" th:href="@{/note/edit/{id}(id=${note.id})}" !
                                target="_blank"></a>
                         </td>
                         <td th:text="${note.title}"></td>

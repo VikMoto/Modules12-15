@@ -1,46 +1,52 @@
 package com.homework.springboot.featureNote.service;
 
 import com.homework.springboot.featureNote.entity.Note;
+import com.homework.springboot.featureNote.entity.NoteRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@RequiredArgsConstructor
 @Service
 public class NoteService {
+    @Autowired
+    private final NoteRepository noteRepository;
     private static Map<Long, Note> notes = new HashMap<>();
-    public Note add(Note note) {
-        Long id;
-//        do {
-          id = (long) (Math.random()/Math.nextDown(1.0) * 3000400002304L);
-//        }while (notes.get(id) == null);
 
-        note.setId(id);
-        notes.put(id, note);
-        return notes.get(id);
+
+    public Note add(Note note) {
+        return noteRepository.save(note);
+    }
+
+    public List<Note> searchQuery(String query) {
+        return noteRepository.searchByNativeSqlQuery("%" + query + "%");
     }
 
     public List<Note> listAll() {
-        List<Note> values = new ArrayList<>(notes.values());
-        return  values;
+
+        return  noteRepository.findAll();
     }
 
-    public Note deleteById(Long id) {
-        return notes.remove(id);
+    public void deleteById(Long id) {
+        noteRepository.deleteById(id.toString());
     }
 
 
     public Note getById(Long id) {
-        return notes.get(id);
+        return noteRepository.searchById(id);
     }
 
     public void update(Note note) {
+        noteRepository.setNoteInfoById(note.getTitle(),note.getContent(),note.getId());
         System.out.println("note = " + note);
-        Optional<Note> note1 = Optional.ofNullable(notes.get(note.getId()));
-        if (note1.isPresent()) {
-            note1.get().setTitle(note.getTitle());
-            note1.get().setContent(note.getContent());
-        } else {
-            throw new RuntimeException();
-        }
+//        Optional<Note> note1 = Optional.ofNullable(notes.get(note.getId()));
+//        if (note1.isPresent()) {
+//            note1.get().setTitle(note.getTitle());
+//            note1.get().setContent(note.getContent());
+//        } else {
+//            throw new RuntimeException();
+//        }
     }
 }
