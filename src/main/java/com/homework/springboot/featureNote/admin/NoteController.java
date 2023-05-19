@@ -7,12 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.HttpServletBean;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.TemplateEngine;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -43,12 +39,6 @@ public class NoteController {
         result.addObject("listNote", noteService.listAll());
         return result;
     }
-
-//    @GetMapping("/create")
-//    public String editNoteForm() {
-//        init();
-//        return "redirect:/note/list"; // the name of the HTML template for the edit note form
-//    }
 
     @GetMapping("/add")
     public String addNoteForm(@RequestParam(value = "title", required = false) String title, String content, Model model) {

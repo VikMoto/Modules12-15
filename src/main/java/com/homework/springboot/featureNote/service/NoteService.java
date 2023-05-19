@@ -13,8 +13,6 @@ import java.util.*;
 public class NoteService {
     @Autowired
     private final NoteRepository noteRepository;
-    private static Map<Long, Note> notes = new HashMap<>();
-
 
     public Note add(Note note) {
         return noteRepository.save(note);
@@ -41,12 +39,5 @@ public class NoteService {
     public void update(Note note) {
         noteRepository.setNoteInfoById(note.getTitle(),note.getContent(),note.getId());
         System.out.println("note = " + note);
-//        Optional<Note> note1 = Optional.ofNullable(notes.get(note.getId()));
-//        if (note1.isPresent()) {
-//            note1.get().setTitle(note.getTitle());
-//            note1.get().setContent(note.getContent());
-//        } else {
-//            throw new RuntimeException();
-//        }
     }
 }

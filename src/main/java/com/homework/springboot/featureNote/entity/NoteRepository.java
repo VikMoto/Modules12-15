@@ -13,16 +13,16 @@ import java.util.List;
 public interface NoteRepository extends JpaRepository<Note,String> {
 
     @Query(nativeQuery = true, value =
-            "SELECT id, title, content\n" +
-                    "FROM note\n" +
-                    "WHERE lower(title) LIKE lower(:query)\n" +
+            "SELECT id, title, content " +
+                    "FROM note " +
+                    "WHERE lower(title) LIKE lower(:query) " +
                     "OR lower(content) LIKE lower(:query)")
     List<Note> searchByNativeSqlQuery(@Param("query") String query);
 
     @Query(nativeQuery = true, value =
-            "SELECT id, title, content\n" +
-                    "FROM note\n" +
-                    "WHERE id = :query\n")
+            "SELECT id, title, content " +
+                    "FROM note " +
+                    "WHERE id = :query ")
     Note searchById(Long query);
 
     @Modifying
