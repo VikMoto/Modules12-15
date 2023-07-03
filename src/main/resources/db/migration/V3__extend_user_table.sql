@@ -1,0 +1,2 @@
+ALTER TABLE "user" ADD COLUMN password VARCHAR(200);
+ALTER TABLE "user" ADD COLUMN authority VARCHAR(100);
